@@ -1,6 +1,5 @@
-import 'package:bank_simulator/core/utilities/styles_constants.dart';
+import 'package:bank_simulator/components/app_bar_component.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -8,25 +7,7 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.only(top: 5, left: 5),
-          child: IconButton(
-            icon: iconMenu,
-            onPressed: () {},
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(top: 5, right: 5),
-            child: Row(
-              children: [IconButton(onPressed: () {}, icon: iconNotification)],
-            ),
-          ),
-        ],
-      ),
+      appBar: appBarComponent(),
       extendBodyBehindAppBar: true,
       body: Container(
         decoration: const BoxDecoration(
@@ -43,7 +24,7 @@ class DashboardPage extends StatelessWidget {
           child: Container(
             height: 60,
             width: 60,
-            decoration: BoxDecoration(color: Colors.red),
+            decoration: const BoxDecoration(color: Colors.red),
           ),
         ),
       ),
