@@ -11,7 +11,7 @@ class UserFirabaseService {
     return _currentUser;
   }
 
-  getUser(String id) async {
+  getUser() async {
     var url = "${ApiConstants.baseUrl}/users/user";
 
     var response = await http.get(Uri.parse(url));
