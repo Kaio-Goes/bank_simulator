@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 const colorWhite = Colors.white;
+const colorCard = LinearGradient(
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+    colors: [Color.fromRGBO(43, 102, 188, 1), Color.fromRGBO(19, 45, 85, 1)]);
 
 const iconMenu = Icon(
   Icons.menu_rounded,
@@ -15,10 +19,10 @@ const iconNotification = Icon(
 );
 
 const textTitle =
-    TextStyle(color: colorWhite, fontSize: 18.0, fontFamily: 'Mulish');
+    TextStyle(color: colorWhite, fontSize: 20.0, fontFamily: 'Mulish');
 
 const textBoldTitle = TextStyle(
     color: colorWhite,
-    fontSize: 18.0,
+    fontSize: 20.0,
     fontFamily: 'Mulish',
     fontWeight: FontWeight.bold);
