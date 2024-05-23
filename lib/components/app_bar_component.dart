@@ -21,7 +21,7 @@ appBarComponent(String title) {
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: Padding(
-            padding: const EdgeInsets.only(top: 5, left: 5),
+            padding: const EdgeInsets.only(top: 5, left: 8),
             child: IconButton(
               icon: iconMenu,
               onPressed: () {},
@@ -29,7 +29,7 @@ appBarComponent(String title) {
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.only(top: 5, right: 5),
+              padding: const EdgeInsets.only(top: 5, right: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -51,8 +51,8 @@ appBarComponent(String title) {
           ],
         ),
         Positioned(
-          left: 16,
-          right: 16,
+          left: 20,
+          right: 20,
           bottom: 0,
           child: Container(
             height: 1,

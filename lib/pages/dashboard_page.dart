@@ -1,5 +1,7 @@
 import 'package:bank_simulator/components/app_bar_component.dart';
-import 'package:bank_simulator/core/utilities/styles_constants.dart';
+import 'package:bank_simulator/components/card_credit_component.dart';
+import 'package:bank_simulator/core/models/card_credit.dart';
+import 'package:bank_simulator/service/card/card_firebase_service.dart';
 import 'package:bank_simulator/service/user/user_firabase_service.dart';
 import 'package:flutter/material.dart';
 
@@ -12,15 +14,26 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   String userName = "Cliente";
+  List<CardCredit> cardsCredit = [];
 
   @override
   void initState() {
     _loadUserData();
+    CardFirebaseService().getCard();
+    setState(() {
+      cardsCredit = CardFirebaseService.cards;
+    });
     super.initState();
   }
 
+  @override
+  void dispose() {
+    cardsCredit.clear();
+    super.dispose();
+  }
+
   Future<void> _loadUserData() async {
-    await UserFirabaseService().getUser('1');
+    await UserFirabaseService().getUser();
     setState(() {
       userName = UserFirabaseService().currentUser!.name;
     });
@@ -45,35 +58,28 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
           ),
-          Positioned(
-            top: MediaQuery.of(context).size.height * 0.12,
-            left: MediaQuery.of(context).size.width * 0.02,
-            child: Column(
-              children: [
-                Card(
-                  child: Container(
-                    width: 300,
-                    height: 160,
-                    decoration: const BoxDecoration(
-                        gradient: colorCard,
-                        borderRadius: BorderRadius.all(Radius.circular(12))),
-                    child: Stack(
+          Column(
+            children: [
+              const SizedBox(
+                height: 100,
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Column(
+                  children: [
+                    Row(
                       children: [
-                        Positioned(
-                          top: 15,
-                          left: 15,
-                          child: Container(
-                            width: 88,
-                            height: 56,
-                            color: const Color.fromRGBO(217, 217, 217, 1),
-                          ),
-                        )
+                        ...cardsCredit.map((cardCredit) {
+                          return CardCreditComponent(
+                            cardCredit: cardCredit,
+                          );
+                        })
                       ],
                     ),
-                  ),
-                )
-              ],
-            ),
+                  ],
+                ),
+              ),
+            ],
           )
         ],
       ),
