@@ -9,7 +9,7 @@ appBarComponent(String title) {
       children: [
         AppBar(
           title: Transform.translate(
-            offset: const Offset(0, 5), //
+            offset: const Offset(0, 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -21,7 +21,7 @@ appBarComponent(String title) {
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: Padding(
-            padding: const EdgeInsets.only(top: 5, left: 8),
+            padding: const EdgeInsets.only(top: 4, left: 4),
             child: IconButton(
               icon: iconMenu,
               onPressed: () {},
@@ -29,34 +29,35 @@ appBarComponent(String title) {
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.only(top: 5, right: 8),
+              padding: const EdgeInsets.only(top: 4, right: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: 30.0,
-                    height: 30.0,
-                    child: SvgPicture.asset(
-                      'assets/images/iconChat.svg',
-                      fit: BoxFit.cover,
-                    ),
+                  SvgPicture.asset(
+                    height: 30,
+                    'assets/images/iconChat.svg',
+                    fit: BoxFit.cover,
                   ),
                   const SizedBox(
-                    width: 1,
+                    width: 8,
                   ),
-                  IconButton(onPressed: () {}, icon: iconNotification)
+                  SvgPicture.asset(
+                    height: 30,
+                    'assets/images/notification.svg',
+                    fit: BoxFit.cover,
+                  ),
                 ],
               ),
             ),
           ],
         ),
         Positioned(
-          left: 20,
-          right: 20,
+          left: 16,
+          right: 16,
           bottom: 0,
           child: Container(
             height: 1,
-            color: Colors.white,
+            color: colorWhiteTransparent,
           ),
         ),
       ],

@@ -38,7 +38,7 @@ class _CardCreditComponentState extends State<CardCreditComponent> {
         height: 160,
         decoration: BoxDecoration(
             gradient: widget.cardCredit.id == '1' ? colorCard : colorCard2,
-            borderRadius: BorderRadius.all(Radius.circular(12))),
+            borderRadius: const BorderRadius.all(Radius.circular(12))),
         child: Stack(
           children: [
             Positioned(

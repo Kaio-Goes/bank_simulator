@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 const colorWhite = Colors.white;
+const colorWhiteTransparent = Color.fromRGBO(229, 229, 229, 0.7);
+const colorBlack = Colors.black;
+const colorBlackLight = Color.fromRGBO(0, 0, 0, 0.7);
+const colorBlueShape = Color.fromRGBO(40, 144, 207, 1);
+
 const colorCard = LinearGradient(
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
@@ -28,7 +33,7 @@ const colorGradientWhite2 = LinearGradient(
     ]);
 
 const iconMenu = Icon(
-  Icons.menu_rounded,
+  Icons.add_card,
   size: 35,
   color: Colors.white,
 );
@@ -63,6 +68,21 @@ const textNumberCard = TextStyle(
 
 const textLabelCard = TextStyle(
   color: colorWhite,
+  fontSize: 11.0,
+  fontFamily: 'Mulish',
+  letterSpacing: -0.8,
+);
+
+const textBlack = TextStyle(
+  color: colorBlack,
+  fontSize: 20.0,
+  fontFamily: 'Mulish',
+  fontWeight: FontWeight.bold,
+  letterSpacing: -0.8,
+);
+
+const textBlackLight = TextStyle(
+  color: colorBlackLight,
   fontSize: 11.0,
   fontFamily: 'Mulish',
   letterSpacing: -0.8,
