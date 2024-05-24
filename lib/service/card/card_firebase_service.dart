@@ -5,18 +5,20 @@ import 'package:bank_simulator/core/utilities/api_constants.dart';
 import 'package:http/http.dart' as http;
 
 class CardFirebaseService {
-  static List<CardCredit> cards = [];
-
-  getCard() async {
+  Future<List<CardCredit>> getCard() async {
     var url = "${ApiConstants.baseUrl}/card";
 
     var response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
+      List<CardCredit> cardCredit = [];
       var responseBody = json.decode(response.body);
       for (var card in responseBody['documents']) {
-        cards.add(CardCredit.fromJson(card));
+        cardCredit.add(CardCredit.fromJson(card));
       }
+      return cardCredit;
+    } else {
+      throw Exception('Failed to load card Credit list');
     }
   }
 }

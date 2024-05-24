@@ -14,22 +14,11 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   String userName = "Cliente";
-  List<CardCredit> cardsCredit = [];
 
   @override
   void initState() {
     _loadUserData();
-    CardFirebaseService().getCard();
-    setState(() {
-      cardsCredit = CardFirebaseService.cards;
-    });
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    cardsCredit.clear();
-    super.dispose();
   }
 
   Future<void> _loadUserData() async {
@@ -37,6 +26,11 @@ class _DashboardPageState extends State<DashboardPage> {
     setState(() {
       userName = UserFirabaseService().currentUser!.name;
     });
+  }
+
+  Future<List<CardCredit>> _loadCardsCredit() async {
+    var cardCredit = await CardFirebaseService().getCard();
+    return cardCredit;
   }
 
   @override
@@ -63,24 +57,31 @@ class _DashboardPageState extends State<DashboardPage> {
               const SizedBox(
                 height: 100,
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        ...cardsCredit.map((cardCredit) {
+              FutureBuilder<List<CardCredit>>(
+                future: _loadCardsCredit(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return const Center(child: Text('Error loading cards'));
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Center(child: Text('No cards available'));
+                  } else {
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: snapshot.data!.map((cardCredit) {
                           return CardCreditComponent(
                             cardCredit: cardCredit,
                           );
-                        })
-                      ],
-                    ),
-                  ],
-                ),
+                        }).toList(),
+                      ),
+                    );
+                  }
+                },
               ),
             ],
-          )
+          ),
         ],
       ),
     );

@@ -23,8 +23,8 @@ const colorGradientWhite2 = LinearGradient(
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
     colors: [
-      Color.fromRGBO(4, 147, 150, 0.411),
-      Color.fromRGBO(4, 147, 150, 1)
+      Color.fromRGBO(140, 207, 182, 0.451),
+      Color.fromRGBO(9, 105, 73, 1)
     ]);
 
 const iconMenu = Icon(
