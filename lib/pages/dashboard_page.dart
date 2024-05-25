@@ -3,8 +3,8 @@ import 'package:bank_simulator/components/card_credit_component.dart';
 import 'package:bank_simulator/components/my_favorites_component.dart';
 import 'package:bank_simulator/core/models/card_credit.dart';
 import 'package:bank_simulator/core/utilities/styles_constants.dart';
-import 'package:bank_simulator/service/card/card_firebase_service.dart';
-import 'package:bank_simulator/service/user/user_firabase_service.dart';
+import 'package:bank_simulator/service/card/card_service.dart';
+import 'package:bank_simulator/service/user/user_service.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -24,14 +24,14 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Future<void> _loadUserData() async {
-    await UserFirabaseService().getUser();
+    await UserService().getUser();
     setState(() {
-      userName = UserFirabaseService().currentUser!.name;
+      userName = UserService().currentUser!.name;
     });
   }
 
   Future<List<CardCredit>> _loadCardsCredit() async {
-    var cardCredit = await CardFirebaseService().getCard();
+    var cardCredit = await CardService().getCard();
     return cardCredit;
   }
 
@@ -96,15 +96,15 @@ class _DashboardPageState extends State<DashboardPage> {
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
               ),
               const MyFavoritesComponent(),
-              Column(
+              const Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 18),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
-                          'Últimos luançamentos',
+                          'Últimos lançamentos',
                           style: textBlack,
                         ),
                         Row(
@@ -113,12 +113,13 @@ class _DashboardPageState extends State<DashboardPage> {
                               'Ver todos',
                               style: textBlackLight,
                             ),
-                            IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: colorBlueShape,
-                                ))
+                            Padding(
+                              padding: const EdgeInsets.only(left: 5),
+                              child: Icon(
+                                Icons.arrow_forward_ios,
+                                color: colorBlueShape,
+                              ),
+                            ),
                           ],
                         )
                       ],

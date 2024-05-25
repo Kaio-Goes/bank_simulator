@@ -4,10 +4,10 @@ import 'package:bank_simulator/core/models/user_firabase.dart';
 import 'package:bank_simulator/core/utilities/api_constants.dart';
 import 'package:http/http.dart' as http;
 
-class UserFirabaseService {
-  static UserFirabase? _currentUser;
+class UserService {
+  static User? _currentUser;
 
-  UserFirabase? get currentUser {
+  User? get currentUser {
     return _currentUser;
   }
 
@@ -18,7 +18,7 @@ class UserFirabaseService {
 
     if (response.statusCode == 200) {
       var responseBody = json.decode(response.body);
-      _currentUser = UserFirabase.fromJson(responseBody['fields']);
+      _currentUser = User.fromJson(responseBody['fields']);
     }
   }
 }

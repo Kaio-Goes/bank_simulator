@@ -13,16 +13,23 @@ class TypeFavoritesButton extends StatelessWidget {
     return SizedBox(
       child: Column(
         children: [
-          IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset(
-              height: 40,
-              colorFilter: const ColorFilter.mode(
-                Color.fromRGBO(52, 108, 189, 1),
-                BlendMode.srcIn,
+          Container(
+            height: 66,
+            width: 66,
+            decoration: const BoxDecoration(
+                color: Color.fromRGBO(229, 229, 229, 0.2),
+                borderRadius: BorderRadius.all(Radius.circular(12))),
+            child: IconButton(
+              onPressed: () {},
+              icon: SvgPicture.asset(
+                height: 40,
+                colorFilter: const ColorFilter.mode(
+                  Color.fromRGBO(52, 108, 189, 1),
+                  BlendMode.srcIn,
+                ),
+                svgPath,
+                fit: BoxFit.cover,
               ),
-              svgPath,
-              fit: BoxFit.cover,
             ),
           ),
           Padding(

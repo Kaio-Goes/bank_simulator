@@ -4,7 +4,7 @@ import 'package:bank_simulator/core/models/card_credit.dart';
 import 'package:bank_simulator/core/utilities/api_constants.dart';
 import 'package:http/http.dart' as http;
 
-class CardFirebaseService {
+class CardService {
   Future<List<CardCredit>> getCard() async {
     var url = "${ApiConstants.baseUrl}/card";
 

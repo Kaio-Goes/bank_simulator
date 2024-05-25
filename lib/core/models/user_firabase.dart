@@ -1,13 +1,13 @@
-class UserFirabase {
+class User {
   late String id;
   late String name;
 
-  UserFirabase({
+  User({
     required this.id,
     required this.name,
   });
 
-  UserFirabase.fromJson(Map<String, dynamic> json) {
+  User.fromJson(Map<String, dynamic> json) {
     id = json['id']['stringValue'];
     name = json['name']['stringValue'];
   }
