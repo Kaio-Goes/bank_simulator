@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bank_simulator/core/models/user_firabase.dart';
+import 'package:bank_simulator/core/models/user.dart';
 import 'package:bank_simulator/core/utilities/api_constants.dart';
 import 'package:http/http.dart' as http;
 
