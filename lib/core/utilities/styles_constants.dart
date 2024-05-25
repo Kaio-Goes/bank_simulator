@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 
 const colorWhite = Colors.white;
 const colorWhiteTransparent = Color.fromRGBO(229, 229, 229, 0.7);
+const colorWhiteTransparent2 = Color.fromRGBO(229, 229, 229, 0.2);
 const colorBlack = Colors.black;
+const colorBlack2 = Color.fromRGBO(33, 33, 33, 1);
+const colorLabel = Color.fromRGBO(105, 105, 107, 1);
+const colorLabelLight = Color.fromRGBO(130, 130, 133, 1);
+
 const colorBlackLight = Color.fromRGBO(0, 0, 0, 0.7);
 const colorBlueShape = Color.fromRGBO(40, 144, 207, 1);
 
@@ -94,3 +99,31 @@ const textBlackButton = TextStyle(
   fontFamily: 'Mulish',
   letterSpacing: -0.8,
 );
+
+const textBlueTitle = TextStyle(
+    color: colorBlueShape,
+    fontSize: 18.0,
+    fontFamily: 'Mulish',
+    letterSpacing: -0.8,
+    fontWeight: FontWeight.w700);
+
+const textLabelBlack = TextStyle(
+    color: colorBlack2,
+    fontSize: 18.0,
+    fontFamily: 'Mulish',
+    letterSpacing: -0.8,
+    fontWeight: FontWeight.w700);
+
+const textLabel = TextStyle(
+    color: colorLabel,
+    fontSize: 14.0,
+    fontFamily: 'Mulish',
+    letterSpacing: -0.8,
+    fontWeight: FontWeight.w100);
+
+const textLabelLight = TextStyle(
+    color: colorLabelLight,
+    fontSize: 11.0,
+    fontFamily: 'Mulish',
+    fontWeight: FontWeight.w700,
+    letterSpacing: -0.8);

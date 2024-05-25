@@ -1,9 +1,12 @@
 import 'package:bank_simulator/components/app_bar_component.dart';
 import 'package:bank_simulator/components/card_credit_component.dart';
 import 'package:bank_simulator/components/my_favorites_component.dart';
+import 'package:bank_simulator/components/transactions_component.dart';
 import 'package:bank_simulator/core/models/card_credit.dart';
+import 'package:bank_simulator/core/models/card_transactions.dart';
 import 'package:bank_simulator/core/utilities/styles_constants.dart';
 import 'package:bank_simulator/service/card/card_service.dart';
+import 'package:bank_simulator/service/card_transactions/card_transactions_service.dart';
 import 'package:bank_simulator/service/user/user_service.dart';
 import 'package:flutter/material.dart';
 
@@ -16,10 +19,12 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   String userName = "Cliente";
+  List<CardTransactions> cardTransactions = [];
 
   @override
   void initState() {
     _loadUserData();
+    _loadTrasactions();
     super.initState();
   }
 
@@ -33,6 +38,12 @@ class _DashboardPageState extends State<DashboardPage> {
   Future<List<CardCredit>> _loadCardsCredit() async {
     var cardCredit = await CardService().getCard();
     return cardCredit;
+  }
+
+  Future<List<CardTransactions>> _loadTrasactions() async {
+    var cardTransaction =
+        await CardTransactionsService().getCardTransactions('1');
+    return cardTransaction;
   }
 
   @override
@@ -96,37 +107,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
               ),
               const MyFavoritesComponent(),
-              const Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Últimos lançamentos',
-                          style: textBlack,
-                        ),
-                        Row(
-                          children: [
-                            const Text(
-                              'Ver todos',
-                              style: textBlackLight,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 5),
-                              child: Icon(
-                                Icons.arrow_forward_ios,
-                                color: colorBlueShape,
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              )
+              TransactionsComponent(cardTransactions: _loadTrasactions())
             ],
           ),
         ],

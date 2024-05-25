@@ -1,7 +1,7 @@
 import 'package:bank_simulator/core/models/card_credit.dart';
 import 'package:bank_simulator/core/utilities/styles_constants.dart';
+import 'package:bank_simulator/core/utilities/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class CardCreditComponent extends StatefulWidget {
   final CardCredit cardCredit;
@@ -13,16 +13,6 @@ class CardCreditComponent extends StatefulWidget {
 
 class _CardCreditComponentState extends State<CardCreditComponent> {
   bool _isMasked = true;
-
-  String getMaskedCardNumber(String cardNumber) {
-    if (cardNumber.length < 4) return cardNumber;
-    return '●●●● ${cardNumber.substring(cardNumber.length - 4)}';
-  }
-
-  String getFormattedBalance(double balance) {
-    final formatCurrency = NumberFormat.simpleCurrency(locale: 'pt_BR');
-    return formatCurrency.format(balance);
-  }
 
   void toggleMask() {
     setState(() {
