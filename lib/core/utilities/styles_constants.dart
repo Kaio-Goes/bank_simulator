@@ -33,7 +33,7 @@ const colorGradientWhite2 = LinearGradient(
     ]);
 
 const iconMenu = Icon(
-  Icons.add_card,
+  Icons.menu_rounded,
   size: 35,
   color: Colors.white,
 );
@@ -84,6 +84,13 @@ const textBlack = TextStyle(
 const textBlackLight = TextStyle(
   color: colorBlackLight,
   fontSize: 11.0,
+  fontFamily: 'Mulish',
+  letterSpacing: -0.8,
+);
+
+const textBlackButton = TextStyle(
+  color: colorBlack,
+  fontSize: 14.0,
   fontFamily: 'Mulish',
   letterSpacing: -0.8,
 );
