@@ -24,11 +24,14 @@ class _DashboardPageState extends State<DashboardPage> {
   final ValueNotifier<bool> isCardTransactionNotifier =
       ValueNotifier<bool>(false);
   final Map<String, List<CardTransactions>> transactionsCache = {};
+  late Future<void> _initialLoad;
 
   @override
   void initState() {
     _loadUserData();
     _scrollController.addListener(_scrollListener);
+    _initialLoad = _loadInitialData();
+
     super.initState();
   }
 
@@ -49,6 +52,11 @@ class _DashboardPageState extends State<DashboardPage> {
         isCardTransactionNotifier.value = true;
       }
     }
+  }
+
+  Future<void> _loadInitialData() async {
+    await _loadUserData();
+    await _loadCardsCredit();
   }
 
   Future<void> _loadUserData() async {
@@ -93,60 +101,76 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
           ),
-          Column(
-            children: [
-              const SizedBox(
-                height: 100,
-              ),
-              SizedBox(
-                height: 180,
-                child: FutureBuilder<List<CardCredit>>(
-                  future: _loadCardsCredit(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasError) {
-                      return const Center(child: Text('Error loading cards'));
-                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return const Center(child: Text('No cards available'));
-                    } else {
-                      return SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        controller: _scrollController,
-                        child: Row(
-                          children: snapshot.data!.map((cardCredit) {
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: CardCreditComponent(
-                                cardCredit: cardCredit,
-                              ),
-                            );
-                          }).toList(),
+          FutureBuilder<void>(
+            future: _initialLoad,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return const Center(child: Text('Error loading data'));
+              } else {
+                return SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 100),
+                      SizedBox(
+                        height: 180,
+                        child: FutureBuilder<List<CardCredit>>(
+                          future: _loadCardsCredit(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            } else if (snapshot.hasError) {
+                              return const Center(
+                                  child: Text('Error loading cards'));
+                            } else if (!snapshot.hasData ||
+                                snapshot.data!.isEmpty) {
+                              return const Center(
+                                  child: Text('No cards available'));
+                            } else {
+                              return SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                controller: _scrollController,
+                                child: Row(
+                                  children: snapshot.data!.map((cardCredit) {
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child: CardCreditComponent(
+                                          cardCredit: cardCredit),
+                                    );
+                                  }).toList(),
+                                ),
+                              );
+                            }
+                          },
                         ),
-                      );
-                    }
-                  },
-                ),
-              ),
-              Container(
-                height: 1,
-                color: colorWhiteTransparent,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
-              ),
-              const MyFavoritesComponent(),
-              ValueListenableBuilder<bool>(
-                valueListenable: isCardTransactionNotifier,
-                builder: (context, isCardTransaction, child) {
-                  return TransactionsComponent(
-                    isCardTransactions: isCardTransaction,
-                    getTransactions: getTransactions,
-                    cardsCredit: cardsCredit,
-                  );
-                },
-              ),
-            ],
+                      ),
+                      Container(
+                        height: 1,
+                        color: colorWhiteTransparent,
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 16),
+                      ),
+                      const MyFavoritesComponent(),
+                      ValueListenableBuilder<bool>(
+                        valueListenable: isCardTransactionNotifier,
+                        builder: (context, isCardTransaction, child) {
+                          return TransactionsComponent(
+                            isCardTransactions: isCardTransaction,
+                            getTransactions: getTransactions,
+                            cardsCredit: cardsCredit,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              }
+            },
           ),
         ],
       ),
