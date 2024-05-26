@@ -10,6 +10,8 @@ const colorLabelLight = Color.fromRGBO(130, 130, 133, 1);
 
 const colorBlackLight = Color.fromRGBO(0, 0, 0, 0.7);
 const colorBlueShape = Color.fromRGBO(40, 144, 207, 1);
+const colorBlueBar = Color.fromRGBO(60, 106, 178, 1);
+const colorGreyBar = Color.fromRGBO(180, 180, 184, 1);
 
 const colorCard = LinearGradient(
     begin: Alignment.centerLeft,
