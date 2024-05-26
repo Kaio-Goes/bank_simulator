@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class BottomBarComponent extends StatelessWidget {
-  const BottomBarComponent({Key? key}) : super(key: key);
+  const BottomBarComponent({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class BottomBarComponent extends StatelessWidget {
             color: Colors.black26,
             spreadRadius: 1,
             blurRadius: 10,
-            offset: Offset(0, -4), // Sombras na parte superior
+            offset: Offset(0, -4),
           ),
         ],
         borderRadius: BorderRadius.only(
@@ -29,16 +29,19 @@ class BottomBarComponent extends StatelessWidget {
           topRight: Radius.circular(35),
         ),
         child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed, // Define o tipo como fixed
-          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w700),
-          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w700),
-          selectedItemColor: Colors.blue, // alterei para a cor azul padrão
+          type: BottomNavigationBarType.fixed,
+          selectedLabelStyle: const TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 12,
+          ),
+          unselectedLabelStyle: const TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 12,
+          ),
+          selectedItemColor: Colors.blue,
           backgroundColor: Colors.white,
-          unselectedItemColor: Colors.grey, // alterei para a cor cinza padrão
-          iconSize: 24, // ajuste o tamanho do ícone conforme necessário
-          selectedFontSize: 12, // ajuste o tamanho do texto selecionado
-          selectedIconTheme:
-              IconThemeData(size: 15), // ajuste o tamanho do ícone selecionado
+          unselectedItemColor: Colors.grey,
+          iconSize: 24,
           items: [
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
@@ -49,7 +52,7 @@ class BottomBarComponent extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                'assets/images/document.svg',
+                'assets/images/shop.svg',
                 fit: BoxFit.cover,
               ),
               label: 'Faturas',
@@ -63,7 +66,8 @@ class BottomBarComponent extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                'assets/images/shop.svg',
+                height: 27,
+                'assets/images/document.svg',
                 fit: BoxFit.cover,
               ),
               label: 'Shop',
