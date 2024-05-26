@@ -1,7 +1,6 @@
 import 'package:bank_simulator/core/models/card_transactions.dart';
 import 'package:bank_simulator/core/utilities/styles_constants.dart';
 import 'package:bank_simulator/core/utilities/utils.dart';
-import 'package:bank_simulator/service/card_transactions/card_transactions_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
