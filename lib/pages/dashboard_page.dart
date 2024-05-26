@@ -20,12 +20,35 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   String userName = "Cliente";
   List<CardTransactions> cardTransactions = [];
+  final ScrollController _scrollController = ScrollController();
+  final ValueNotifier<bool> isCardTransactionNotifier =
+      ValueNotifier<bool>(false);
+  final Map<String, List<CardTransactions>> transactionsCache = {};
 
   @override
   void initState() {
     _loadUserData();
-    _loadTrasactions();
+    _scrollController.addListener(_scrollListener);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    isCardTransactionNotifier.dispose();
+    super.dispose();
+  }
+
+  void _scrollListener() {
+    if (_scrollController.position.atEdge) {
+      if (_scrollController.position.pixels == 0) {
+        // O usuário voltou ao começo do scroll
+        isCardTransactionNotifier.value = false;
+      } else {
+        // O usuário chegou ao final do scroll
+        isCardTransactionNotifier.value = true;
+      }
+    }
   }
 
   Future<void> _loadUserData() async {
@@ -40,10 +63,15 @@ class _DashboardPageState extends State<DashboardPage> {
     return cardCredit;
   }
 
-  Future<List<CardTransactions>> _loadTrasactions() async {
-    var cardTransaction =
-        await CardTransactionsService().getCardTransactions('1');
-    return cardTransaction;
+  Future<List<CardTransactions>> getTransactions(String id) async {
+    if (transactionsCache.containsKey(id)) {
+      return transactionsCache[id]!;
+    } else {
+      var transactions =
+          await CardTransactionsService().getCardTransactions(id);
+      transactionsCache[id] = transactions;
+      return transactions;
+    }
   }
 
   @override
@@ -84,6 +112,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     } else {
                       return SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
+                        controller: _scrollController,
                         child: Row(
                           children: snapshot.data!.map((cardCredit) {
                             return Padding(
@@ -107,7 +136,15 @@ class _DashboardPageState extends State<DashboardPage> {
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
               ),
               const MyFavoritesComponent(),
-              TransactionsComponent(cardTransactions: _loadTrasactions())
+              ValueListenableBuilder<bool>(
+                valueListenable: isCardTransactionNotifier,
+                builder: (context, isCardTransaction, child) {
+                  return TransactionsComponent(
+                    isCardTransactions: isCardTransaction,
+                    getTransactions: getTransactions,
+                  );
+                },
+              ),
             ],
           ),
         ],

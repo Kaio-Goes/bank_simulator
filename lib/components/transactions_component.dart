@@ -1,12 +1,46 @@
 import 'package:bank_simulator/core/models/card_transactions.dart';
 import 'package:bank_simulator/core/utilities/styles_constants.dart';
 import 'package:bank_simulator/core/utilities/utils.dart';
+import 'package:bank_simulator/service/card_transactions/card_transactions_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class TransactionsComponent extends StatelessWidget {
-  final Future<List<CardTransactions>>? cardTransactions;
-  const TransactionsComponent({super.key, required this.cardTransactions});
+class TransactionsComponent extends StatefulWidget {
+  final bool isCardTransactions;
+  final Future<List<CardTransactions>> Function(String id) getTransactions;
+
+  const TransactionsComponent(
+      {super.key,
+      required this.isCardTransactions,
+      required this.getTransactions});
+
+  @override
+  State<TransactionsComponent> createState() => _TransactionsComponentState();
+}
+
+class _TransactionsComponentState extends State<TransactionsComponent> {
+  late Future<List<CardTransactions>> _transactionsFuture;
+
+  Future<void> _loadTransactions() async {
+    String id = widget.isCardTransactions ? '2' : '1';
+    setState(() {
+      _transactionsFuture = widget.getTransactions(id);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTransactions();
+  }
+
+  @override
+  void didUpdateWidget(covariant TransactionsComponent oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.isCardTransactions != widget.isCardTransactions) {
+      _loadTransactions();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +77,7 @@ class TransactionsComponent extends StatelessWidget {
           height: 220,
           width: double.infinity,
           child: FutureBuilder(
-            future: cardTransactions,
+            future: _transactionsFuture,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
@@ -189,7 +223,7 @@ class TransactionsComponent extends StatelessWidget {
               }
             },
           ),
-        )
+        ),
       ],
     );
   }
