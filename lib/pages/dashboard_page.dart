@@ -19,7 +19,7 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   String userName = "Cliente";
-  List<CardTransactions> cardTransactions = [];
+  List<CardCredit> cardsCredit = [];
   final ScrollController _scrollController = ScrollController();
   final ValueNotifier<bool> isCardTransactionNotifier =
       ValueNotifier<bool>(false);
@@ -59,8 +59,8 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Future<List<CardCredit>> _loadCardsCredit() async {
-    var cardCredit = await CardService().getCard();
-    return cardCredit;
+    cardsCredit = await CardService().getCard();
+    return cardsCredit;
   }
 
   Future<List<CardTransactions>> getTransactions(String id) async {
@@ -142,6 +142,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   return TransactionsComponent(
                     isCardTransactions: isCardTransaction,
                     getTransactions: getTransactions,
+                    cardsCredit: cardsCredit,
                   );
                 },
               ),

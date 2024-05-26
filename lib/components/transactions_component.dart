@@ -1,3 +1,4 @@
+import 'package:bank_simulator/core/models/card_credit.dart';
 import 'package:bank_simulator/core/models/card_transactions.dart';
 import 'package:bank_simulator/core/utilities/styles_constants.dart';
 import 'package:bank_simulator/core/utilities/utils.dart';
@@ -7,11 +8,13 @@ import 'package:flutter_svg/svg.dart';
 class TransactionsComponent extends StatefulWidget {
   final bool isCardTransactions;
   final Future<List<CardTransactions>> Function(String id) getTransactions;
+  final List<CardCredit> cardsCredit;
 
   const TransactionsComponent(
       {super.key,
       required this.isCardTransactions,
-      required this.getTransactions});
+      required this.getTransactions,
+      required this.cardsCredit});
 
   @override
   State<TransactionsComponent> createState() => _TransactionsComponentState();
@@ -21,7 +24,9 @@ class _TransactionsComponentState extends State<TransactionsComponent> {
   late Future<List<CardTransactions>> _transactionsFuture;
 
   Future<void> _loadTransactions() async {
-    String id = widget.isCardTransactions ? '2' : '1';
+    String id = widget.isCardTransactions
+        ? widget.cardsCredit.last.id
+        : widget.cardsCredit.first.id;
     setState(() {
       _transactionsFuture = widget.getTransactions(id);
     });
