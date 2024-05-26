@@ -78,7 +78,7 @@ class _TransactionsComponentState extends State<TransactionsComponent> {
           ),
         ),
         SizedBox(
-          height: 220,
+          height: 250,
           width: double.infinity,
           child: FutureBuilder(
             future: _transactionsFuture,
