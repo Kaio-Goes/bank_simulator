@@ -4,7 +4,7 @@ Este projeto consiste na criação de uma dashboard de um aplicativo bancário p
 Foi desenvolvida uma integração com o Firestore Database para realizar as requisições necessárias.
 A estrutura ficou conforme as imagems:
 
-![User](https://drive.google.com/file/d/1FjarjmtljR5VPuVgQtIQtEeqgZrQR2nw/view?usp=sharing)
+![User](https://drive.google.com/file/d/1FjarjmtljR5VPuVgQtIQtEeqgZrQR2nw/view?usp=drive_link)
 
 
 
