@@ -78,7 +78,7 @@ class _TransactionsComponentState extends State<TransactionsComponent> {
           ),
         ),
         SizedBox(
-          height: 250,
+          height: MediaQuery.of(context).size.height * 0.31,
           width: double.infinity,
           child: FutureBuilder(
             future: _transactionsFuture,
@@ -90,9 +90,13 @@ class _TransactionsComponentState extends State<TransactionsComponent> {
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                 return const Center(child: Text('No cards available'));
               } else {
+                // Ordenar as transações pela data em ordem decrescente
+                List<CardTransactions> transactions = snapshot.data!;
+                transactions.sort((a, b) => b.startDate.compareTo(a.startDate));
+
                 // Agrupar as transações pelo dia
                 Map<String, List<CardTransactions>> groupedTransactions = {};
-                for (var transaction in snapshot.data!) {
+                for (var transaction in transactions) {
                   String date = formatDate(transaction.startDate);
                   if (!groupedTransactions.containsKey(date)) {
                     groupedTransactions[date] = [];
@@ -127,7 +131,8 @@ class _TransactionsComponentState extends State<TransactionsComponent> {
                                       padding: const EdgeInsets.only(left: 20),
                                       child: Stack(
                                         children: [
-                                          if (transaction.id == "2")
+                                          if (transaction.id == "2" ||
+                                              transaction.id == "9")
                                             Positioned(
                                               top: 5,
                                               left: 50,
